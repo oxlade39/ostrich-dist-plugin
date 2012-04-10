@@ -48,7 +48,7 @@ object GithubPagesMavenPublish extends Plugin {
 
     def rootLink(dir: Option[File]): String = dir match {
       case None => ".."
-      case Some(f) if f == root => ".."
+      case Some(f) if f == root => ""
       case Some(f) => rootLink(Option(f.getParentFile)) + "/.."
     }
 
