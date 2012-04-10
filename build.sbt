@@ -12,4 +12,6 @@ publishTo := Some(
 
 publishMavenStyle := true
 
+libraryDependencies += "org.scalatest" %% "scalatest" % "1.7.1" % "test"
+
 scalacOptions ++= Seq("-deprecation", "-unchecked")
