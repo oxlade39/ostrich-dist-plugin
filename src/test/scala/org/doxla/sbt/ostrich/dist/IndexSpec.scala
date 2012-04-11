@@ -5,8 +5,8 @@ import org.doxla.sbt.ostrich.dist.GithubPagesMavenPublish.IndexMaker
 import org.scalatest.{BeforeAndAfterEach, FlatSpec}
 import sbt.Resolver.file
 import java.io.File
-import sbt.{PathExtra, IO}
 import xml.{NodeSeq, Elem, XML}
+import sbt.{Path, PathExtra, IO}
 
 /**
  * @author dan
@@ -106,4 +106,9 @@ object MyXML extends XMLLoader[Elem] {
     f.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
     f.newSAXParser()
   }
+}
+
+object BootstrapRun extends App with PathExtra {
+  val projectIndexMaker: IndexMaker = new IndexMaker(Path.userHome / "proj" / "oxlade39.github.com" / "ostrich-dist-plugin" / "maven")
+  projectIndexMaker.make()
 }

@@ -1,0 +1,1 @@
+unmanagedSourceDirectories in Compile <+= baseDirectory.apply(_ / ".." / "src" / "main" / "scala")

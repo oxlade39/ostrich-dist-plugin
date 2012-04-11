@@ -9,22 +9,30 @@ import xml.PrettyPrinter
  * @author oxladed
  */
 object GithubPagesMavenPublish extends Plugin {
+  val githubPagesCheckoutDir: SettingKey[File] = SettingKey[File]("gh-pages-dir",
+    "The location of checkout out gh-pages to use for deploying to")
+
   val githubPagesMavenPublish: TaskKey[File] = TaskKey[File]("github-publish",
     "Publish project artifacts to a maven repo on gh-pages")
 
   val githubPagesMavenPublishSettings = Seq(
-    publish in githubPagesMavenPublish <<= (publish, publishTo) map {
-      (pub, to) =>
+    publishTo <<= githubPagesCheckoutDir.apply {
+      (pagesDir: File) =>
+        Some(Resolver.file("Github Pages", pagesDir)(Patterns(true, Resolver.mavenStyleBasePattern)))
+    },
+
+    publish <<= (publish, githubPagesCheckoutDir, streams) map {
+      (pub, to, str) =>
+        val log: Logger = str.log
+
+        log.info { "github-pages publishing..." }
+
         val originalPublishTask: Types.Id[Unit] = pub
 
-        to match {
-          case Some(FileRepository(fileName, publishConfig, patterns)) if(publishConfig.isLocal)=> {
-            val publishToDirectory: sbt.File = file(fileName)
-            if(publishToDirectory.exists()) {
-              IndexMaker(publishToDirectory)
-            }
-          }
-          case _ =>
+        log.info {"github-pages checking existance of %s".format(to)}
+        if(to.exists()) {
+          log.info {"github-pages publishing to %s".format(to)}
+          IndexMaker(to)
         }
 
         originalPublishTask
