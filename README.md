@@ -73,7 +73,7 @@ project/ExampleBuild.scala:
 
 ### Expectations
 
-The plugin currently has the following expectations on directory locations: (which may be made customisable if required)
+The plugin currently has the following expectations on **directory locations**: (which may be made customisable if required)
 
     projectName/config
         - your Ostrich config files
