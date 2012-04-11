@@ -2,6 +2,8 @@
 
 An [sbt](https://github.com/harrah/xsbt) plugin for creating binary distributions which use [Ostrich](https://github.com/twitter/ostrich)
 
+[![Build Status](https://secure.travis-ci.org/oxlade39/ostrich-dist-plugin.png?branch=master)](http://travis-ci.org/oxlade39/ostrich-dist-plugin)
+
 ### What it creates
 
 a `.zip` file containing the following:
