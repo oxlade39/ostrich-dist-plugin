@@ -1,6 +1,6 @@
 # Ostrich Dist Plugin
 
-An sbt plugin for creating binary distributions which use [Ostrich](https://github.com/twitter/ostrich)
+An [sbt](https://github.com/harrah/xsbt) plugin for creating binary distributions which use [Ostrich](https://github.com/twitter/ostrich)
 
 ### What it creates
 
@@ -10,6 +10,8 @@ a `.zip` file containing the following:
         your project's runtime dependencies
     /config
         your project's Ostrich configuration
+    /webapp
+        if your project has a webapp directory this will be included too
     ${project.name}-${project.version}.sh
         a bash script to run your Ostrich configured main class
 
@@ -68,3 +70,14 @@ project/ExampleBuild.scala:
 ### Running
 
     $ sbt create-ostrich-dist
+
+### Expectations
+
+The plugin currently has the following expectations on directory locations: (which may be made customisable if required)
+
+    projectName/config
+        - your Ostrich config files
+    projectName/src/main/webapp
+        - Optional webapp folder, containing say a WEB-INF sub-folder
+
+And finally that you want a bash executable. (I've left it open to extend easily)
